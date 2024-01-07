@@ -10,3 +10,5 @@ tailwind.config.js
 src/panel/__pycache__/
 
 src/account/__pycache__/
+
+venv/
