@@ -1,0 +1,12 @@
+
+node_modules/
+
+package-lock.json
+
+package.json
+
+tailwind.config.js
+
+src/panel/__pycache__/
+
+src/account/__pycache__/

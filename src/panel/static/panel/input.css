@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+form {
+
+    margin-block-end: 0px;
+
+}
+
+input:disabled {
+
+    opacity : 0.7
+
+}
+
+textarea:disabled {
+
+    opacity : 0.7
+
+}

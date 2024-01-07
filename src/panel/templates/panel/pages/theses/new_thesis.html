@@ -1,0 +1,205 @@
+{% extends "panel/partials/_base.html" %}
+
+{% load static %}
+
+{% block title %}GTS - New Thesis{% endblock %}
+
+{% block content %}
+
+<div class=" px-4 pt-6 dark:bg-gray-900">
+    <div class="mb-4 xl:mb-2">
+        <nav class="flex mb-5" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
+              <li class="inline-flex items-center">
+                <a href="{% url 'panel:home' %}" class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-500">
+                  <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                  Ana Sayfa
+                </a>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  <a href="" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-primary-500">Theses</a>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  <span class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500" aria-current="page">New Thesis</span>
+                </div>
+              </li>
+            </ol>
+        </nav>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">New Thesis</h1>
+    </div>
+
+    
+    <div class="p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+
+        <form action="" method="POST" enctype="multipart/form-data" class="space-y-8">
+            
+            {% csrf_token %}
+
+            <div class="grid grid-cols-6 gap-6">
+                
+                <div class="col-span-6 sm:col-span-6 flex items-center p-4 mr-10 space-x-4 whitespace-nowrap">
+                                
+                    <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" src="{% static 'panel/img/default_pp.png' %}" alt="">
+                    
+                    <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                        <div class="flex items-center">
+                            <div class="h-2.5 w-2.5 rounded-full bg-gray-700 dark:bg-gray-500 mr-2"></div>
+                            <div class="text-base font-semibold text-gray-900 dark:text-white">{{ user.name }} {{ user.surname }}</div>
+                        </div>
+                        <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ user.username }}</div>
+                    </div>
+                </div>
+                {% if new_thesis_form.non_field_errors %}
+                <div>
+                    <ul class="text-red-700 dark:text-red-600 text-sm">
+                        {% for error in new_thesis_form.non_field_errors %}
+                            <li class="mb-1">{{ error|escape }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <div class="col-span-6">
+                    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title:</label>
+                    {{ new_thesis_form.title }}
+                    {% if new_thesis_form.title.errors %}
+                    <div>
+                        <ul class="text-red-700 dark:text-red-600 text-sm mt-1">
+                            {% for error in new_thesis_form.title.errors %}
+                                <li class="mb-1">{{ error|escape }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-span-6">
+                    <label for="abstract" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Abstract:</label>
+                    {{ new_thesis_form.abstract }}
+                    {% if new_thesis_form.abstract.errors %}
+                    <div>
+                        <ul class="text-red-700 dark:text-red-600 text-sm mt-1">
+                            {% for error in new_thesis_form.abstract.errors %}
+                                <li class="mb-1">{{ error|escape }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type:</label>
+                    {{ new_thesis_form.type }}
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="language" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Language:</label>
+                    {{ new_thesis_form.language }}
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="institute" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Institute:</label>
+                    {{ new_thesis_form.institute }}
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="university" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">University:</label>
+                    <input disabled type="text" name="university" value="***" id="university" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="supervisor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supervisor:</label>
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                          @
+                        </span>
+                        <input required type="text" id="supervisor" name="supervisor" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="maugts">
+                    </div>
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR and "supervisor" in message.tags %}
+                            <div>
+                                <ul class="text-red-700 dark:text-red-600 text-sm mt-1">
+                                    <li class="mb-1">{{ message }}</li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="cosupervisor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cosupervisor:</label>
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                          @
+                        </span>
+                        <input type="text" id="cosupervisor" name="cosupervisor" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="maugts">
+                    </div>
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR and "cosupervisor" in message.tags %}
+                            <div>
+                                <ul class="text-red-700 dark:text-red-600 text-sm mt-1">
+                                    <li class="mb-1">{{ message }}</li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="write-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Written:</label>
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                        </span>
+                        {{ new_thesis_form.write_date }}
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="sub-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Submitted:</label>
+
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                        </span>
+                        <input disabled type="text" name="sub-date" value="***" id="sub-date" class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    
+                </div>
+                <div class="col-span-6 sm:col-span-6">
+
+                    
+                    <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subject(s):</label>
+                    {{ new_thesis_form.subjects }}
+                    <p id="helper-subject-text" class="text-xs font-normal mt-2 text-gray-500 dark:text-gray-300">Use CTRL to select multiple.</p>
+                </div>
+                <div class="col-span-6 sm:col-span-6">
+                    <label for="keywords" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keyword(s):</label>
+                    <input type="text" name="keywords" value="" id="keywords" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <p id="helper-subject-text" class="text-xs font-normal mt-2 text-gray-500 dark:text-gray-300">Seperate each keyword with a comma (ex: "keyword1, keyword2, keyword3").</p>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="page" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Page Count:</label>
+                    {{ new_thesis_form.page_no }}
+                    {% if new_thesis_form.page_no.errors %}
+                    <div>
+                        <ul class="text-red-700 dark:text-red-600 text-sm mt-1">
+                            {% for error in new_thesis_form.page_no.errors %}
+                                <li class="mb-1">{{ error|escape }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <button type="submit" class="mt-8 inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-green-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                        Add Thesis
+                    </button>
+                </div>
+                
+            </div>
+            
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock content %}
